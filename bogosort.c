@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_ITERS 20
+#define MAX_ITERS 13
 #define MAX_SIZE  100
 #define MAX_VALUE 50000
 
@@ -14,6 +14,7 @@
 #define DEF_CLR          "\033[0m"
 #define CYAN_CLR         "\033[0;36m"
 #define BMAG_CLR         "\033[0;95m"
+#define BGRN_CLR         "\033[0;92m"
 
 int is_increasing ( int * a, size_t n )  {
     for ( size_t i = 1; i < n; i++ )
@@ -93,7 +94,7 @@ int main ( void ) {
         sort_random ( i + 1, rand ( ) % MAX_VALUE );
     end = clock ( );
 
-    printf ( "[ALL] Elapsed time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
+    printf ( "\n%s[ALL] Elapsed time: %lf\n%s", BGRN_CLR, ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC, DEF_CLR );
     #endif
 
     #ifndef __RANDOM_RUN__
