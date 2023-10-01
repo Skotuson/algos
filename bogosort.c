@@ -6,13 +6,14 @@
 #define MAX_SIZE  100
 #define MAX_VALUE 1500
 
-#define CURSOR_RETURN "\033[G"
-#define HIDE_CURSOR   "\033[?25l"
-#define SHOW_CURSOR   "\033[?25h"
-#define CLEAR_LINE    "\033[K"
-#define DEF_CLR       "\033[0m"
-#define CYAN_CLR      "\033[0;36m"
-#define BMAG_CLR      "\033[0;95m"
+#define CURSOR_RETURN    "\033[G"
+#define CURSOR_RETURN_AB "\033[F"
+#define HIDE_CURSOR      "\033[?25l"
+#define SHOW_CURSOR      "\033[?25h"
+#define CLEAR_LINE       "\033[K"
+#define DEF_CLR          "\033[0m"
+#define CYAN_CLR         "\033[0;36m"
+#define BMAG_CLR         "\033[0;95m"
 
 int is_increasing ( int * a, size_t n )  {
     for ( size_t i = 1; i < n; i++ )
@@ -74,7 +75,7 @@ void sort_random ( size_t n, size_t max ) {
     size_t iter;
 
     start = clock ( );
-    iter = bogo ( a, n, 0 );
+    iter = bogo ( a, n, 1 );
     end = clock ( );
     printf ( "n = %zd\n", n );
     print ( a, n );
