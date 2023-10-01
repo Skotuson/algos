@@ -9,6 +9,7 @@
 #define CURSOR_RETURN "\033[G"
 #define HIDE_CURSOR   "\033[?25l"
 #define SHOW_CURSOR   "\033[?25h"
+#define CLEAR_LINE    "\033[K";
 
 
 int is_increasing ( int * a, size_t n )  {
@@ -52,20 +53,21 @@ void bogo ( int * a, size_t n ) {
         iter++;
         printf ( "%s", CURSOR_RETURN );
     }
+    printf ( "%s", CLEAR_LINE );
     printf ( "%s", SHOW_CURSOR );
 }
 
 void sort_random ( size_t n, size_t max ) {
     int * a = random_arr ( n, max );
     printf ( "=======================\n" );
-    printf ( "=> n = %zd\n", n );
+    printf ( "n = %zd\n", n );
     clock_t start, end;
     
     start = clock ( );
     bogo ( a, n );
     end = clock ( );
     print ( a, n );
-    printf ( "(n = %zd) Elapsed Time: %lf\n", n, ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
+    printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
 
     free ( a );
 }
