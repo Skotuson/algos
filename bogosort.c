@@ -8,6 +8,13 @@ int is_increasing ( int * a, size_t n )  {
     return 1;
 }
 
+void print ( int * a, size_t n ) {
+    printf ( "{ " );
+    for ( size_t i = 0; i < n; i++ )
+        printf ( "%d ", a[i] );
+    printf ( "}\n" );
+}
+
 void swap ( int * a, int * b ) {
     int tmp = *a;
     *a = *b;
@@ -15,16 +22,17 @@ void swap ( int * a, int * b ) {
 }
 
 void shuffle ( int * a, size_t n ) {
-
+    for ( size_t i = 0; i < n; i++ )
+        swap ( a[i], a[rand() % n] );
 }
 
 void bogo ( int * a, size_t n ) {
-    while ( ! is_increasing ( a, n ) ) {
-        
-    }
+    srand ( time ( NULL ) );
+    while ( ! is_increasing ( a, n ) )
+        shuffle ( a, n );
 }
 
 int main ( void ) {
-
+    
     return 0;
 }
