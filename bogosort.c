@@ -45,31 +45,38 @@ void shuffle ( int * a, size_t n ) {
         swap ( &a[i], &a[rand() % n] );
 }
 
-size_t bogo ( int * a, size_t n ) {
+size_t bogo ( int * a, size_t n, int print ) {
     srand ( time ( NULL ) );
     size_t iter = 1;
-    printf ( "%s", HIDE_CURSOR );
+    if ( print )
+        printf ( "%s", HIDE_CURSOR );
     while ( ! is_increasing ( a, n ) ) {
-        printf ( "Bogosort Iterations: %zd", iter );
-        shuffle ( a, n );
+        if ( print ) {
+            printf ( "Bogosort Iterations: %zd", iter );
+            printf ( "%s", CURSOR_RETURN );
+        }
+
         iter++;
-        printf ( "%s", CURSOR_RETURN );
+        shuffle ( a, n );
     }
-    printf ( "%s", CLEAR_LINE );
-    printf ( "%s", SHOW_CURSOR );
+
+    if ( print ) {
+        printf ( "%s", CLEAR_LINE );
+        printf ( "%s", SHOW_CURSOR );
+    }
     return iter - 1;
 }
 
 void sort_random ( size_t n, size_t max ) {
     int * a = random_arr ( n, max );
     printf ( "=======================\n" );
-    printf ( "n = %zd\n", n );
     clock_t start, end;
     size_t iter;
 
     start = clock ( );
-    iter = bogo ( a, n );
+    iter = bogo ( a, n, 0 );
     end = clock ( );
+    printf ( "n = %zd\n", n );
     print ( a, n );
     printf ( "%s", CYAN_CLR );
     printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
