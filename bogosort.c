@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_ITERS 25
+#define MAX_ITERS 13
 #define MAX_SIZE  100
 #define MAX_VALUE 1500
 
 #define CURSOR_RETURN "\033[G"
 #define HIDE_CURSOR   "\033[?25l"
 #define SHOW_CURSOR   "\033[?25h"
-#define CLEAR_LINE    "\033[K";
+#define CLEAR_LINE    "\033[K"
 
 
 int is_increasing ( int * a, size_t n )  {
