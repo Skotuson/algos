@@ -4,7 +4,7 @@
 
 #define MAX_ITERS 13
 #define MAX_SIZE  100
-#define MAX_VALUE 1500
+#define MAX_VALUE 50000
 
 #define CURSOR_RETURN    "\033[G"
 #define CURSOR_RETURN_AB "\033[F"
@@ -47,7 +47,6 @@ void shuffle ( int * a, size_t n ) {
 }
 
 size_t bogo ( int * a, size_t n, int print ) {
-    srand ( time ( NULL ) );
     size_t iter = 1;
     if ( print )
         printf ( "%s", HIDE_CURSOR );
@@ -61,10 +60,8 @@ size_t bogo ( int * a, size_t n, int print ) {
         shuffle ( a, n );
     }
 
-    if ( print ) {
-        printf ( "%s", CLEAR_LINE );
-        printf ( "%s", SHOW_CURSOR );
-    }
+    printf ( "%s", CLEAR_LINE );
+    printf ( "%s", SHOW_CURSOR );
     return iter - 1;
 }
 
@@ -74,10 +71,10 @@ void sort_random ( size_t n, size_t max ) {
     clock_t start, end;
     size_t iter;
 
-    start = clock ( );
-    iter = bogo ( a, n, 1 );
-    end = clock ( );
     printf ( "n = %zd\n", n );
+    start = clock ( );
+    iter = bogo ( a, n, 0 );
+    end = clock ( );
     print ( a, n );
     printf ( "%s", CYAN_CLR );
     printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
