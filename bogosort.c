@@ -57,6 +57,8 @@ void bogo ( int * a, size_t n ) {
 
 void sort_random ( size_t n, size_t max ) {
     int * a = random_arr ( n, max );
+    printf ( "=======================\n" );
+    printf ( "=> n = %zd\n", n );
     printf ( "Before sorting:\n" );
     print ( a, n );
 
@@ -68,7 +70,7 @@ void sort_random ( size_t n, size_t max ) {
     printf ( "After sorting:\n" );
     print ( a, n );
 
-    printf ( "One sort time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
+    printf ( "[ONE] Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
 
     free ( a );
 }
@@ -82,7 +84,7 @@ int main ( void ) {
         sort_random ( i + 1, rand ( ) % MAX_VALUE );
     end = clock ( );
 
-    printf ( "Time elapsed: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
+    printf ( "[ALL] Elapsed time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
     #endif
 
     #ifndef __RANDOM_RUN__
