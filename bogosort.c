@@ -50,7 +50,7 @@ size_t bogo ( int * a, size_t n ) {
     size_t iter = 1;
     printf ( "%s", HIDE_CURSOR );
     while ( ! is_increasing ( a, n ) ) {
-        printf ( "Iterations: %zd", iter );
+        printf ( "Bogosort Iterations: %zd", iter );
         shuffle ( a, n );
         iter++;
         printf ( "%s", CURSOR_RETURN );
