@@ -10,7 +10,9 @@
 #define HIDE_CURSOR   "\033[?25l"
 #define SHOW_CURSOR   "\033[?25h"
 #define CLEAR_LINE    "\033[K"
-
+#define DEF_CLR       "\033[0m"
+#define CYAN_CLR      "\033[0;36m"
+#define BMAG_CLR      "\033[0;95m"
 
 int is_increasing ( int * a, size_t n )  {
     for ( size_t i = 1; i < n; i++ )
@@ -43,9 +45,9 @@ void shuffle ( int * a, size_t n ) {
         swap ( &a[i], &a[rand() % n] );
 }
 
-void bogo ( int * a, size_t n ) {
+size_t bogo ( int * a, size_t n ) {
     srand ( time ( NULL ) );
-    size_t iter = 0;
+    size_t iter = 1;
     printf ( "%s", HIDE_CURSOR );
     while ( ! is_increasing ( a, n ) ) {
         printf ( "Iterations: %zd", iter );
@@ -55,6 +57,7 @@ void bogo ( int * a, size_t n ) {
     }
     printf ( "%s", CLEAR_LINE );
     printf ( "%s", SHOW_CURSOR );
+    return iter - 1;
 }
 
 void sort_random ( size_t n, size_t max ) {
@@ -62,13 +65,17 @@ void sort_random ( size_t n, size_t max ) {
     printf ( "=======================\n" );
     printf ( "n = %zd\n", n );
     clock_t start, end;
-    
+    size_t iter;
+
     start = clock ( );
-    bogo ( a, n );
+    iter = bogo ( a, n );
     end = clock ( );
     print ( a, n );
+    printf ( "%s", CYAN_CLR );
     printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
-
+    printf ( "%s", BMAG_CLR );
+    printf ( "Bogosort ran %zd times\n", iter );
+    printf ( "%s", DEF_CLR );
     free ( a );
 }
 
