@@ -80,7 +80,7 @@ void sort_random ( size_t n, size_t max ) {
     printf ( "%s", CYAN_CLR );
     printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
     printf ( "%s", BMAG_CLR );
-    printf ( "Bogosort ran %zd times\n", iter );
+    printf ( "Algorithm ran %zd times\n", iter );
     printf ( "%s", DEF_CLR );
     free ( a );
 }
