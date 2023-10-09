@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define MAX_ITERS 1000
+#define MAX_ITERS 20000
 #define MAX_SIZE  100
 #define MAX_VALUE 50000
 
@@ -69,24 +69,38 @@ size_t bubble ( int * a, size_t n ) {
     return iter - 1;
 }
 
-void sort_random ( size_t n, size_t max, size_t (*sort_fnc) ( int *, size_t ) ) {
+size_t mergesort ( int * a, size_t n ) {
+    size_t iters = 1;
+    //TODO
+    return iters - 1;
+}
+size_t quicksort ( int * a, size_t n ) {
+    size_t iters = 1;
+    //TODO
+    return iters - 1;
+}
+
+void sort_random ( size_t n, size_t max, size_t (*sort_fnc) ( int *, size_t ), int print ) {
     int * a = random_arr ( n, max );
-    printf ( "=======================\n" );
+    if ( print )
+        printf ( "=======================\n" );
     clock_t start, end;
     size_t iter;
-
-    printf ( "n = %zd\n", n );
+    if ( print )
+        printf ( "n = %zd\n", n );
     start = clock ( );
     iter = sort_fnc ( a, n );
     end = clock ( );
     //Sorted check
     assert ( is_increasing ( a, n ) );
-    //print ( a, n );
-    printf ( "%s", CYAN_CLR );
-    printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
-    printf ( "%s", BMAG_CLR );
-    printf ( "Algorithm iterations count: %zd\n", iter );
-    printf ( "%s", DEF_CLR );
+    if ( print ) {
+        //print ( a, n );
+        printf ( "%s", CYAN_CLR );
+        printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
+        printf ( "%s", BMAG_CLR );
+        printf ( "Algorithm iterations count: %zd\n", iter );
+        printf ( "%s", DEF_CLR );
+    }
     free ( a );
 }
 
@@ -97,7 +111,7 @@ int main ( void ) {
     start = clock ( );
     size_t els = 0;
     for ( size_t i = 0; i < MAX_ITERS; i++ ) {
-        sort_random ( i + 1, rand ( ) % MAX_VALUE, bubble );
+        sort_random ( i + 1, rand ( ) % MAX_VALUE, bubble, 0 );
         els += i + 1;
     }
     end = clock ( );
