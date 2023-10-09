@@ -49,20 +49,10 @@ void shuffle ( int * a, size_t n ) {
 
 size_t bogo ( int * a, size_t n, int print ) {
     size_t iter = 1;
-    if ( print )
-        printf ( "%s", HIDE_CURSOR );
     while ( ! is_increasing ( a, n ) ) {
-        if ( print ) {
-            printf ( "Bogosort Iterations: %zd", iter );
-            printf ( "%s", CURSOR_RETURN );
-        }
-
         iter++;
         shuffle ( a, n );
     }
-
-    printf ( "%s", CLEAR_LINE );
-    printf ( "%s", SHOW_CURSOR );
     return iter - 1;
 }
 
@@ -88,7 +78,7 @@ void sort_random ( size_t n, size_t max ) {
 int main ( void ) {
     srand ( time ( NULL ) );
     clock_t start, end;
-    #ifdef __RANDOM_RUN__
+    #ifndef __RANDOM_RUN__
     start = clock ( );
     for ( size_t i = 0; i < MAX_ITERS; i++ )
         sort_random ( i + 1, rand ( ) % MAX_VALUE );
@@ -97,7 +87,7 @@ int main ( void ) {
     printf ( "\n%s[ALL] Elapsed time: %lf\n%s", BGRN_CLR, ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC, DEF_CLR );
     #endif
 
-    #ifndef __RANDOM_RUN__
+    #ifdef __RANDOM_RUN__
     start = clock ( );
     sort_random ( 15, 100 );
     end = clock ( );
