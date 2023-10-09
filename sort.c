@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define MAX_ITERS 20000
+#define MAX_ITERS 1000
 #define MAX_SIZE  100
 #define MAX_VALUE 50000
 
@@ -94,11 +94,16 @@ int main ( void ) {
     clock_t start, end;
     #ifndef __RANDOM_RUN__
     start = clock ( );
-    for ( size_t i = 0; i < MAX_ITERS; i++ )
+    size_t els = 0;
+    for ( size_t i = 0; i < MAX_ITERS; i++ ) {
         sort_random ( i + 1, rand ( ) % MAX_VALUE, bubble );
+        els += i + 1;
+    }
     end = clock ( );
 
     printf ( "\n%s[ALL] Elapsed time: %lf\n%s", BGRN_CLR, ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC, DEF_CLR );
+    printf ( "%sTotal number of elements sorted: %zd%s\n", CYAN_CLR, els, DEF_CLR );
+
     #endif
 
     #ifdef __RANDOM_RUN__
