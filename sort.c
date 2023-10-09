@@ -79,6 +79,7 @@ void sort_random ( size_t n, size_t max, size_t (*sort_fnc) ( int *, size_t ) ) 
     start = clock ( );
     iter = sort_fnc ( a, n );
     end = clock ( );
+    //Sorted check
     assert ( is_increasing ( a, n ) );
     //print ( a, n );
     printf ( "%s", CYAN_CLR );
