@@ -1,8 +1,9 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
-#define MAX_ITERS 13
+#define MAX_ITERS 20000
 #define MAX_SIZE  100
 #define MAX_VALUE 50000
 
@@ -47,7 +48,7 @@ void shuffle ( int * a, size_t n ) {
         swap ( &a[i], &a[rand() % n] );
 }
 
-size_t bogo ( int * a, size_t n, int print ) {
+size_t bogo ( int * a, size_t n ) {
     size_t iter = 1;
     while ( ! is_increasing ( a, n ) ) {
         iter++;
@@ -56,7 +57,19 @@ size_t bogo ( int * a, size_t n, int print ) {
     return iter - 1;
 }
 
-void sort_random ( size_t n, size_t max ) {
+size_t bubble ( int * a, size_t n ) {
+    size_t iter = 1;
+    for ( size_t i = 0; i < n; i++ ) {
+        for ( size_t j = 0; j < n - i - 1; j++ ) {
+            if ( a[j] > a[j + 1] )
+                swap ( &a[j], &a[j + 1] );
+            iter++;
+        }
+    }
+    return iter - 1;
+}
+
+void sort_random ( size_t n, size_t max, size_t (*sort_fnc) ( int *, size_t ) ) {
     int * a = random_arr ( n, max );
     printf ( "=======================\n" );
     clock_t start, end;
@@ -64,13 +77,14 @@ void sort_random ( size_t n, size_t max ) {
 
     printf ( "n = %zd\n", n );
     start = clock ( );
-    iter = bogo ( a, n, 0 );
+    iter = sort_fnc ( a, n );
     end = clock ( );
-    print ( a, n );
+    assert ( is_increasing ( a, n ) );
+    //print ( a, n );
     printf ( "%s", CYAN_CLR );
     printf ( "Elapsed Time: %lf\n", ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC );
     printf ( "%s", BMAG_CLR );
-    printf ( "Algorithm ran %zd times\n", iter );
+    printf ( "Algorithm iterations count: %zd\n", iter );
     printf ( "%s", DEF_CLR );
     free ( a );
 }
@@ -81,7 +95,7 @@ int main ( void ) {
     #ifndef __RANDOM_RUN__
     start = clock ( );
     for ( size_t i = 0; i < MAX_ITERS; i++ )
-        sort_random ( i + 1, rand ( ) % MAX_VALUE );
+        sort_random ( i + 1, rand ( ) % MAX_VALUE, bubble );
     end = clock ( );
 
     printf ( "\n%s[ALL] Elapsed time: %lf\n%s", BGRN_CLR, ( ( double ) ( end - start ) ) / CLOCKS_PER_SEC, DEF_CLR );
@@ -89,7 +103,7 @@ int main ( void ) {
 
     #ifdef __RANDOM_RUN__
     start = clock ( );
-    sort_random ( 15, 100 );
+    sort_random ( 15, 100, bogo );
     end = clock ( );
     #endif
 
